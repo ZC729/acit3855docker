@@ -1,0 +1,142 @@
+openapi: 3.0.0
+info:
+  description: This API receives order and inventory update events for a beer distribution business
+  version: "1.0.0"
+  title: Inventory API
+  contact:
+    email: zchang8@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: customers
+    description: Operations available to customers
+  - name: receivers
+    description: Operations available to product receiving staff
+paths:
+  /update:
+    get:
+      summary: gets an update from history
+      operationId: app.get_update
+      description: Gets update event from the event store
+      parameters:
+        - name: index
+          in: query
+          description: Gets the update at the index in the event store
+          schema:
+            type: integer
+            example: 100
+      responses:
+        '200':
+          description: Successfully returned an update event
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/InventoryItem'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /order:
+    get:
+      summary: gets an order from history
+      operationId: app.get_order
+      description: Gets order event from the event store
+      parameters:
+        - name: index
+          in: query
+          description: Gets the order at the index in the event store
+          schema:
+            type: integer
+            example: 100
+      responses:
+        '200':
+          description: Successfully returned an update event
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    InventoryItem:
+      type: object
+      required:
+        - product_id
+        - name
+        - manufacturer_id
+        - quantity
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: Hazy IPA
+        quantity:
+          type: integer
+          example: 8
+        manufacturer_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+    Order:
+      type: object
+      required:
+        - product_id
+        - customer_id
+        - quantity
+        - date
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        customer_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        quantity:
+          type: integer
+          example: 8
+        date:
+          type: string
+          format: datetime
+          example: '2016-07-29T05:34:43.0045'

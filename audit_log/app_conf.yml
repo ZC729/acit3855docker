@@ -1,0 +1,5 @@
+version: 1
+events:
+  hostname: acit3855-zchang.eastus.cloudapp.azure.com
+  port: 9092
+  topic: events
