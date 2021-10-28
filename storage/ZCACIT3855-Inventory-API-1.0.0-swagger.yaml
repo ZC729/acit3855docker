@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  description: This API receives order and inventory update events for a beer distribution business
+  version: "1.0.0"
+  title: Inventory API
+  contact:
+    email: zchang8@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: customers
+    description: Operations available to customers
+  - name: receivers
+    description: Operations available to product receiving staff
+paths:
+  # /inventory/update:  
+  #   post:
+  #     tags:
+  #       - receivers
+  #     summary: updates inventory
+  #     operationId: app.update_inventory
+  #     description: Updates quantity of item in the system
+  #     responses:
+  #       '201':
+  #         description: item updated
+  #       '400':
+  #         description: 'invalid input, object invalid'
+  #       '409':
+  #         description: item does not exist
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/InventoryItem'
+  #       description: Inventory item to update
+  # /inventory/order:  
+  #   post:
+  #     tags:
+  #       - customers
+  #     summary: creates order
+  #     operationId: app.create_order
+  #     description: Creates customer order
+  #     responses:
+  #       '201':
+  #         description: order created
+  #       '400':
+  #         description: 'invalid input, object invalid'
+  #       '409':
+  #         description: item does not exist
+  #     requestBody:
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/Order'
+  #       description: Order to create
+  /data/update:
+    get:
+      tags:
+        - receivers
+      summary: gets new inventory updates
+      operationId: app.get_inventory_updates
+      description: Gets invetory updates added after a timestamp
+      parameters:
+        - name: timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: 2020-09-01T09:12:33.001
+      responses:
+        '200':
+          description: Successfully returned a list of inventory update events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryItem'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /data/order:
+    get:
+      tags:
+        - receivers
+      summary: gets new orders
+      operationId: app.get_inventory_orders
+      description: Gets orders added after a timestamp
+      parameters:
+        - name: timestamp
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: string
+            format: date-time
+            example: 2020-09-01T09:12:33.001Z
+      responses:
+        '200':
+          description: Successfully returned a list of order events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    InventoryItem:
+      type: object
+      required:
+        - product_id
+        - name
+        - manufacturer_id
+        - quantity
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        name:
+          type: string
+          example: Hazy IPA
+        quantity:
+          type: integer
+          example: 8
+        manufacturer_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+    Order:
+      type: object
+      required:
+        - product_id
+        - customer_id
+        - quantity
+        - date
+      properties:
+        product_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        customer_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        quantity:
+          type: integer
+          example: 8
+        date:
+          type: string
+          format: datetime
+          example: '2016-07-29T05:34:43.0045'
