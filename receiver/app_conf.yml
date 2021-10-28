@@ -1,0 +1,9 @@
+version: 1
+eventstore1:
+  url: http://localhost:8090/inventory/update
+eventstore2:
+  url: http://localhost:8090/inventory/order
+events:
+  hostname: acit3855-zchang.eastus.cloudapp.azure.com
+  port: 9092
+  topic: events
