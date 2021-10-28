@@ -1,0 +1,46 @@
+openapi: 3.0.0
+info:
+  description: This API provide event stats
+  version: "1.0.0"
+  title: Stats API
+  contact:
+    email: zchang8@my.bcit.ca
+
+paths:
+  /stats:
+    get:
+      summary: Gets the event stats
+      operationId: app.get_stats
+      description: Gets Inventory Updates and Orders processed statistics
+      responses:
+        '200':
+          description: Successfully returned a list of inventory events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/InventoryStats'
+
+components:
+  schemas:
+    InventoryStats:
+      type: object
+      required:
+        - num_updates
+        - max_update_quantity
+        - num_orders
+        - max_order_quantity
+      properties:
+        num_updates:
+          type: integer
+          example: 5
+        max_update_quantity:
+          type: integer
+          example: 8
+        num_orders:
+          type: integer
+          example: 8
+        max_order_quantity:
+          type: integer
+          example: 8
