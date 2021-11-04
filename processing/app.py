@@ -5,7 +5,7 @@ import os.path
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import requests
-
+from flask_cors import CORS, cross_origin
 import yaml
 import logging
 import logging.config
@@ -108,6 +108,8 @@ def init_scheduler():
 
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("ZCACIT3855-Inventory-API-1.0.0-swagger.yaml", strict_validation=True, validate_responses=True)
+CORS(app.app)
+app.app.config['CORS_HEADERS'] = 'Content-Type'
 
 if __name__ == "__main__":
     """ Run our standalone gevent server """
