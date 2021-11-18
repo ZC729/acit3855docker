@@ -32,6 +32,7 @@ while num_attempts <= max_tries:
         logger.error("Attempted Kafka connection failed")
         time.sleep(app_config["events"]["sleep_time"])
         num_attempts += 1
+    num_attempts += 1
 
 def update_inventory(body):
     """Receives an inventory update event"""
