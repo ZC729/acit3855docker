@@ -76,8 +76,6 @@ def get_inventory_updates(start_timestamp, end_timestamp):
 
     start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%d %H:%M:%S")
     end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%d %H:%M:%S")
-    
-    print(timestamp_datetime)
 
     inventory_updates = session.query(Update).filter(and_(Update.date_created >= start_timestamp_datetime, Update.date_created < end_timestamp_datetime))
 
