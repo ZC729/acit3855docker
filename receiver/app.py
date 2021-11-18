@@ -19,6 +19,7 @@ with open('log_conf.yml', 'r') as f:
 
 logger = logging.getLogger('basicLogger')
 
+
 def update_inventory(body):
     """Receives an inventory update event"""
     # print(app_config['eventstore1']['url'])
@@ -73,7 +74,6 @@ app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("ZCACIT3855-Inventory-API-1.0.0-swagger.yaml", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
-    app.run(port=8080)
     max_tries = app_config["events"]["max_retries"]
     num_attempts = 0
     while num_attempts <= max_tries:
@@ -84,3 +84,4 @@ if __name__ == "__main__":
             logger.error("Attempted Kafka connection failed")
             time.sleep(app_config["events"]["sleep_time"])
             num_attempts += 1
+    app.run(port=8080)
