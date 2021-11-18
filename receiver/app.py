@@ -29,8 +29,8 @@ def update_inventory(body):
     
     hostname = "%s:%d" % (app_config["events"]["hostname"],
                             app_config["events"]["port"])# response = requests.post(str(app_config['eventstore1']['url']), json=body, headers=headers)
-    client = KafkaClient(hosts=hostname)
-    topic = client.topics[str.encode(app_config['events']['topic'])]
+#     client = KafkaClient(hosts=hostname)
+#     topic = client.topics[str.encode(app_config['events']['topic'])]
     producer = topic.get_sync_producer()
     msg = { "type": "update",
             "datetime" :
@@ -54,8 +54,8 @@ def create_order(body):
     # response = requests.post(str(app_config['eventstore2']['url']), json=body, headers=headers)
     hostname = "%s:%d" % (app_config["events"]["hostname"],
                             app_config["events"]["port"])# response = requests.post(str(app_config['eventstore1']['url']), json=body, headers=headers)
-    client = KafkaClient(hosts=hostname)
-    topic = client.topics[str.encode(app_config['events']['topic'])]
+#     client = KafkaClient(hosts=hostname)
+#     topic = client.topics[str.encode(app_config['events']['topic'])]
     producer = topic.get_sync_producer()
     msg = { "type": "order",
             "datetime" :
