@@ -24,7 +24,7 @@ max_tries = app_config["events"]["max_retries"]
 num_attempts = 0
 hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
 while num_attempts <= max_tries:
-    logger.info("Trying to connect to Kafka: Current retry count " + str(attempts))
+    logger.info("Trying to connect to Kafka: Current retry count " + str(num_attempts))
     try:
         client = KafkaClient(hosts=hostname)
         topic = client.topics[str.encode(app_config["events"]["topic"])]
