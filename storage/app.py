@@ -118,7 +118,7 @@ def process_messages():
     """ Process event messages """
     hostname = "%s:%d" % (app_config["events"]["hostname"],
                             app_config["events"]["port"])
-    max_tries = app_config["events]["max_retries"]
+    max_tries = app_config["events"]["max_retries"]
     num_attempts = 0
     while num_attempts <= max_tries:
         try:
