@@ -60,7 +60,7 @@ paths:
         - receivers
       summary: gets new inventory updates
       operationId: app.get_inventory_updates
-      description: Gets invetory updates added after a timestamp
+      description: Gets inventory updates added after a timestamp
       parameters:
         - name: start_timestamp
           in: query
@@ -68,14 +68,14 @@ paths:
           schema:
             type: string
             format: date-time
-            example: 2020-09-01T09:12:33.001Z
+            example: 2020-09-01T09:12:33Z
         - name: end_timestamp
           in: query
           description: Limits the number of items on a page
           schema:
             type: string
             format: date-time
-            example: 2020-09-01T09:12:33.001Z     
+            example: 2020-09-01T09:12:33Z     
       responses:
         '200':
           description: Successfully returned a list of inventory update events
@@ -108,14 +108,14 @@ paths:
           schema:
             type: string
             format: date-time
-            example: 2020-09-01T09:12:33.001Z
+            example: 2020-09-01T09:12:33Z
         - name: end_timestamp
           in: query
           description: Limits the number of items on a page
           schema:
             type: string
             format: date-time
-            example: 2020-09-01T09:12:33.001Z
+            example: 2020-09-01T09:12:33Z
       responses:
         '200':
           description: Successfully returned a list of order events
