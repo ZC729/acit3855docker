@@ -35,7 +35,7 @@ def populate_stats():
                 "num_orders": 0,
                 "max_order_quantity": 0,
 #                 "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                "last_updated": "2016-11-18 18:18:38.921052"
+                "last_updated": "2016-11-18 18:18:38"
                 }
 
     timestamp = log_data["last_updated"]
