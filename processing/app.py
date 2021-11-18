@@ -42,17 +42,20 @@ def populate_stats():
     current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     r_updates = requests.get(app_config['eventstore']['url'] + "/data/update?start_timestamp=" + timestamp + "&end_timestamp=" + current_timestamp)
+    print(r_updates)
     updates_list = r_updates.json()
-
+    print(updates_list)
+    
     if r_updates.status_code != 200:
         logger.error("Received status code that was not 200")
     else:
         logger.info(f"Received {len(updates_list)} update events")
     
     r_orders = requests.get(app_config['eventstore']['url'] + "/data/order?start_timestamp=" + timestamp + "&end_timestamp=" + current_timestamp)
-
+    print(r_orders)
     orders_list = r_orders.json()
-
+    print(orders_list)
+    
     if r_orders.status_code != 200:
         logger.error("Received status code that was not 200")
     else:
