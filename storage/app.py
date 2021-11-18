@@ -3,6 +3,7 @@ from connexion import NoContent
 import json
 import os.path
 import sqlalchemy
+from sqlalchemy import and_
 from datetime import datetime
 import datetime
 from pykafka import KafkaClient
@@ -67,15 +68,17 @@ def create_order(body):
 
     return NoContent, 201
 
-def get_inventory_updates(timestamp):
+def get_inventory_updates(start_timestamp, end_timestand):
     """ Gets new inventory updates after the timestamp"""
 
     session = DB_SESSION()
 
-    timestamp_datetime = datetime.datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+    start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%d %H:%M:%S")
+    end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%d %H:%M:%S")
+    
     print(timestamp_datetime)
 
-    inventory_updates = session.query(Update).filter(Update.date_created >= timestamp_datetime)
+    inventory_updates = session.query(Update).filter(and_(Update.date_created >= start_timestamp_datetime, Update.date_created < end_timestamp_datetime))
 
     results_list = []
 
