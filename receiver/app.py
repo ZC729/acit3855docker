@@ -8,6 +8,7 @@ import logging.config
 import yaml
 import datetime
 from pykafka import KafkaClient
+import time
 
 
 with open('app_conf.yml', 'r') as f:
@@ -53,8 +54,7 @@ def create_order(body):
     # Handle the request here
     headers = {"content-type": "application/json"}
     # response = requests.post(str(app_config['eventstore2']['url']), json=body, headers=headers)
-    hostname = "%s:%d" % (app_config["events"]["hostname"],
-                            app_config["events"]["port"])# response = requests.post(str(app_config['eventstore1']['url']), json=body, headers=headers)
+# response = requests.post(str(app_config['eventstore1']['url']), json=body, headers=headers)
 #     client = KafkaClient(hosts=hostname)
 #     topic = client.topics[str.encode(app_config['events']['topic'])]
     producer = topic.get_sync_producer()
@@ -76,6 +76,8 @@ app.add_api("ZCACIT3855-Inventory-API-1.0.0-swagger.yaml", strict_validation=Tru
 if __name__ == "__main__":
     max_tries = app_config["events"]["max_retries"]
     num_attempts = 0
+    hostname = "%s:%d" % (app_config["events"]["hostname"],
+                            app_config["events"]["port"])
     while num_attempts <= max_tries:
         try:
             client = KafkaClient(hosts=hostname)
