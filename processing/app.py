@@ -40,7 +40,9 @@ def populate_stats():
 
     timestamp = log_data["last_updated"]
     current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
+    print(current_timestamp)
+    
+    
     r_updates = requests.get(app_config['eventstore']['url'] + "/data/update?start_timestamp=" + timestamp + "&end_timestamp=" + current_timestamp)
     print(r_updates)
     updates_list = r_updates.json()
