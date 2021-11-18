@@ -76,7 +76,7 @@ def populate_stats():
                 "max_update_quantity": max_update_quantity, 
                 "num_orders": num_orders,
                 "max_order_quantity": max_order_quantity,
-                "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                "last_updated": current_timestamp
                 }
 
     with open(app_config['datastore']['filename'], 'w') as f:
