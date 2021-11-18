@@ -69,7 +69,7 @@ def create_order(body):
 
     return NoContent, 201
 
-def get_inventory_updates(start_timestamp, end_timestand):
+def get_inventory_updates(start_timestamp, end_timestamp):
     """ Gets new inventory updates after the timestamp"""
 
     session = DB_SESSION()
