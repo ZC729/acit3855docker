@@ -9,6 +9,7 @@ import datetime
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
 from threading import Thread
+import time
 
 import pymysql
 import yaml
@@ -117,8 +118,16 @@ def process_messages():
     """ Process event messages """
     hostname = "%s:%d" % (app_config["events"]["hostname"],
                             app_config["events"]["port"])
-    client = KafkaClient(hosts=hostname)
-    topic = client.topics[str.encode(app_config["events"]["topic"])]
+    max_tries = app_config["events]["max_retries"]
+    num_attempts = 0
+    while num_attempts <= max_tries:
+        try:
+            client = KafkaClient(hosts=hostname)
+            topic = client.topics[str.encode(app_config["events"]["topic"])]
+        except:
+            logger.error("Attempted Kafka connection failed")
+            time.sleep(app_config["events"]["sleep_time"])
+            num_attempts += 1
 
     # Create a consume on a consumer group, that only reads new messages
     # (uncommitted messages) when the service re-starts (i.e., it doesn't
