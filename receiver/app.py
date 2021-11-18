@@ -75,6 +75,7 @@ app.add_api("ZCACIT3855-Inventory-API-1.0.0-swagger.yaml", strict_validation=Tru
 if __name__ == "__main__":
     app.run(port=8080)
     max_tries = app_config["events"]["max_retries"]
+    num_attempts = 0
     while num_attempts <= max_tries:
         try:
             client = KafkaClient(hosts=hostname)
