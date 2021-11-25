@@ -68,14 +68,14 @@ paths:
           schema:
             type: string
             format: date-time
-            example: 2020-09-01T09:12:33Z
+            example: 2020-09-01T09:12:33.001
         - name: end_timestamp
           in: query
           description: Limits the number of items on a page
           schema:
             type: string
             format: date-time
-            example: 2020-09-01T09:12:33Z     
+            example: 2020-09-01T09:12:33.001     
       responses:
         '200':
           description: Successfully returned a list of inventory update events
@@ -108,14 +108,14 @@ paths:
           schema:
             type: string
             format: date-time
-            example: 2020-09-01T09:12:33Z
+            example: 2020-09-01T09:12:33.001
         - name: end_timestamp
           in: query
           description: Limits the number of items on a page
           schema:
             type: string
             format: date-time
-            example: 2020-09-01T09:12:33Z
+            example: 2020-09-01T09:12:33.001
       responses:
         '200':
           description: Successfully returned a list of order events
