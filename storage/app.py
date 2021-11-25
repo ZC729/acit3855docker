@@ -43,7 +43,7 @@ logger = logging.getLogger('basicLogger')
 # logger.info("App Conf File: %s" % app_conf_file)
 # logger.info("Log Conf File: %s" % log_conf_file)
 
-DB_ENGINE = create_engine(f"mysql+pymysql://{app_config['datastore']['user']}:{app_config['datastore']['password']}@{app_config['datastore']['hostname']}:{app_config['datastore']['port']}/{app_config['datastore']['db']}")
+DB_ENGINE = create_engine(f"mysql+pymysql://{app_config['datastore']['user']}:{app_config['datastore']['password']}@{app_config['datastore']['hostname']}:{app_config['datastore']['port']}/{app_config['datastore']['db']}", pool_pre_ping=True, pool_recycle=300, pool_size=10, max_overflow=20, pool_timeout=3600)
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
