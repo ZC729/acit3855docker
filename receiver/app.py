@@ -41,12 +41,11 @@ while num_attempts <= max_tries:
         client = KafkaClient(hosts=hostname)
         topic = client.topics[str.encode(app_config["events"]["topic"])]
         producer = topic.get_sync_producer()
+        break
     except:
         logger.error("Attempted Kafka connection failed")
         time.sleep(app_config["events"]["sleep_time"])
         num_attempts += 1
-    num_attempts += 1
-    break
 
 def update_inventory(body):
     """Receives an inventory update event"""
