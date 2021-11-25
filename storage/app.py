@@ -136,6 +136,7 @@ def process_messages():
             logger.info("Attempt %s to connect to Kafka" % (num_attempts))
             client = KafkaClient(hosts=hostname)
             topic = client.topics[str.encode(app_config["events"]["topic"])]
+            logger.info("Successfully connected to Kafka")
             break
         except:
             logger.error("Attempted Kafka connection failed")
