@@ -41,6 +41,7 @@ while num_attempts <= max_tries:
         client = KafkaClient(hosts=hostname)
         topic = client.topics[str.encode(app_config["events"]["topic"])]
         producer = topic.get_sync_producer()
+        logger.info("Successfully connected to Kafka")
         break
     except:
         logger.error("Attempted Kafka connection failed")
