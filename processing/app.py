@@ -38,6 +38,7 @@ def populate_stats():
                 }
 
     timestamp = log_data["last_updated"]
+    print(timestamp)
     current_timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(current_timestamp)
     
