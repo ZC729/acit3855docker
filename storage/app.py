@@ -130,8 +130,10 @@ def process_messages():
                             app_config["events"]["port"])
     max_tries = app_config["events"]["max_retries"]
     num_attempts = 0
+    logger.info("Attempting to connect to Kafka")
     while num_attempts <= max_tries:
         try:
+            logger.info("Attempt %s to connect to Kafka" % (num_attempts))
             client = KafkaClient(hosts=hostname)
             topic = client.topics[str.encode(app_config["events"]["topic"])]
             break
