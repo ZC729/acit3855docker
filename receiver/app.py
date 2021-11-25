@@ -60,7 +60,7 @@ def update_inventory(body):
                             app_config["events"]["port"])# response = requests.post(str(app_config['eventstore1']['url']), json=body, headers=headers)
 #     client = KafkaClient(hosts=hostname)
 #     topic = client.topics[str.encode(app_config['events']['topic'])]
-    producer = topic.get_sync_producer()
+#     producer = topic.get_sync_producer()
     msg = { "type": "update",
             "datetime" :
                 datetime.datetime.now().strftime(
@@ -84,7 +84,7 @@ def create_order(body):
 # response = requests.post(str(app_config['eventstore1']['url']), json=body, headers=headers)
 #     client = KafkaClient(hosts=hostname)
 #     topic = client.topics[str.encode(app_config['events']['topic'])]
-    producer = topic.get_sync_producer()
+#     producer = topic.get_sync_producer()
     msg = { "type": "order",
             "datetime" :
                 datetime.datetime.now().strftime(
