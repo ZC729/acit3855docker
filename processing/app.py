@@ -125,9 +125,10 @@ def init_scheduler():
     sched.start()
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api("ZCACIT3855-Inventory-API-1.0.0-swagger.yaml", strict_validation=True, validate_responses=True)
-CORS(app.app)
-app.app.config['CORS_HEADERS'] = 'Content-Type'
+app.add_api("ZCACIT3855-Inventory-API-1.0.0-swagger.yaml", base_path="/processing", strict_validation=True, validate_responses=True)
+if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test": 
+    CORS(app.app) 
+    app.app.config['CORS_HEADERS'] = 'Content-Type'
 
 if __name__ == "__main__":
     """ Run our standalone gevent server """
