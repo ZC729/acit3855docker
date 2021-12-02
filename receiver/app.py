@@ -98,7 +98,7 @@ def create_order(body):
     return NoContent, 201
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api("ZCACIT3855-Inventory-API-1.0.0-swagger.yaml", strict_validation=True, validate_responses=True)
+app.add_api("ZCACIT3855-Inventory-API-1.0.0-swagger.yaml", base_path="/receiver", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
     app.run(port=8080)
